@@ -13,6 +13,33 @@ import About from './component/About';
      )
  }
 
+ class Event extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            eventHand : true
+        }
+
+        // deklarasi metode bind
+        this.changeEvent = this.changeEvent.bind(this)
+    }
+
+    changeEvent() {
+        this.setState(state => ({
+            eventHand : !state.eventHand
+        }))
+    }
+    render() {
+        return(
+            <button onClick={this.changeEvent}>
+                {this.state.eventHand ? 'ON' : 'OFF'}
+                <p>ready {this.state.eventHand ? 'ONFIRE' : 'DOWN'} </p>
+            </button>
+        )
+    }
+ }
+
 
  export default class App extends Component {
      
@@ -44,7 +71,7 @@ import About from './component/About';
                     </li>                    
                     <li>
                         <Bio name='setyo awan'>
-                            <p>from indonesian</p>
+                            <p>from indonesian</p>                            
                         </Bio>
                     </li>
                     <li>
@@ -53,6 +80,8 @@ import About from './component/About';
                         </Bio>
                     </li>
                 </ul>
+
+                <Event/>
                  
              </React.Fragment>
          )
