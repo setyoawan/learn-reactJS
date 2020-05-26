@@ -1,14 +1,14 @@
 import React from 'react';
 
 
-const About = (props) => {  
+
+const About = () => {
     return(
-        <div>
-            <p>Hai my name {props.name}, my age {props.age}</p>
-            {props.children}
-        </div>
+        <h3>my name is</h3>
+
     )  
-}
+  
+  
+} 
 
-
-export default About;
+export default About

@@ -1,48 +1,60 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import About from './component/About';
+import './style/index.css';
 import Message from './component/Message';
+import About from './component/About';
 
 
-// component dan props
+ function Bio(props) {
+     return(
+         <>
+            <p>{props.name}</p>
+            {props.children}                                            
+        </>
+     )
+ }
 
-// function Age(props) {
-//   return (
-//     <div>
-//       <p>age {props.age}</p> 
-//     </div>
-//   );
-// }
 
-// function About(props) {
-//   return(
-//   <p>hai my name is {props.name}, <Age age= {props.age}/></p>
-//   )
-// }
+ export default class App extends Component {
+     
+    constructor() {
+        super()
+        this.state= {
+            message : ''
+        }
+    }
 
-class App extends Component{
-  render() {
-    return(
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h3>Hello world</h3>              
-          <About name="setyo" age="22">
-            <p>child props</p>
-          </About>
-          <About name="awan" age="20">
-            <button>store</button>
-          </About>
-          <About name="prakoso" age="21"/>  
-        </header>
+    BtnChange() {
+        this.setState ({
+           message : 'thanks'
+        })
+    }
 
-        <div>
-          <Message/>
-        </div>
-    </div>  
-    );
-  }
-}
-
-export default App;
+     render() {
+         return(
+             <React.Fragment>
+                 <h1>welcome</h1>
+                 <Message/>
+                 <About/>
+                 <ul>
+                    <li>
+                        <Bio name='setyo awan prakoso'>
+                            <p>{this.state.message}</p>
+                            <button onClick={  () => {this.BtnChange()}}>Button</button>
+                        </Bio>
+                    </li>                    
+                    <li>
+                        <Bio name='setyo awan'>
+                            <p>from indonesian</p>
+                        </Bio>
+                    </li>
+                    <li>
+                        <Bio name='setyo'>
+                            <p>learn by doing!</p>
+                        </Bio>
+                    </li>
+                </ul>
+                 
+             </React.Fragment>
+         )
+     }
+ }
