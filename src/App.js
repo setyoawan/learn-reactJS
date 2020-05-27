@@ -1,89 +1,48 @@
-import React, { Component } from 'react';
-import './style/index.css';
-import Message from './component/Message';
-import About from './component/About';
+import React, { Component } from 'react'
+import './style/App.css'
+import List from './component/List'
+
+export class App extends Component {
 
 
- function Bio(props) {
-     return(
-         <>
-            <p>{props.name}</p>
-            {props.children}                                            
-        </>
-     )
- }
-
- class Event extends Component {
-
-    constructor(props) {
+    constructor(props){
         super(props)
         this.state = {
-            eventHand : true
+            todoItem : '',
+            item     : []
         }
-
-        // deklarasi metode bind
-        this.changeEvent = this.changeEvent.bind(this)
     }
 
-    changeEvent() {
-        this.setState(state => ({
-            eventHand : !state.eventHand
-        }))
+    
+    HandleSubmit = (e) => {
+        e.preventDefault()
+        this.setState({
+            item : [...this.state.item, this.state.todoItem],
+            todoItem: ''
+        })      
+          
     }
+    
+    HandleChange = (e) => {
+        this.setState({
+            todoItem : e.target.value
+        })   
+    }
+
     render() {
-        return(
-            <button onClick={this.changeEvent}>
-                {this.state.eventHand ? 'ON' : 'OFF'}
-                <p>ready {this.state.eventHand ? 'ONFIRE' : 'DOWN'} </p>
-            </button>
+        return (
+            <div className='card'>
+                <h3>Todo List</h3> 
+
+                <List items={this.state.item}/>
+
+                <form onSubmit={this.HandleSubmit}>
+                    <input value={this.state.todoItem} onChange={this.HandleChange}/>
+                    <button>Add</button>
+                </form>  
+            </div>
         )
     }
- }
+}
 
-
- export default class App extends Component {
-     
-    constructor() {
-        super()
-        this.state= {
-            message : ''
-        }
-    }
-
-    BtnChange() {
-        this.setState ({
-           message : 'thanks'
-        })
-    }
-
-     render() {
-         return(
-             <React.Fragment>
-                 <h1>welcome</h1>
-                 <Message/>
-                 <About/>
-                 <ul>
-                    <li>
-                        <Bio name='setyo awan prakoso'>
-                            <p>{this.state.message}</p>
-                            <button onClick={  () => {this.BtnChange()}}>Button</button>
-                        </Bio>
-                    </li>                    
-                    <li>
-                        <Bio name='setyo awan'>
-                            <p>from indonesian</p>                            
-                        </Bio>
-                    </li>
-                    <li>
-                        <Bio name='setyo'>
-                            <p>learn by doing!</p>
-                        </Bio>
-                    </li>
-                </ul>
-
-                <Event/>
-                 
-             </React.Fragment>
-         )
-     }
- }
+export default App
