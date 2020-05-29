@@ -1,95 +1,56 @@
-import React, { Component } from 'react';
-import './style/index.css';
-import Message from './component/Message';
-import About from './component/About';
-import List from './component/List';
+import React, { Component } from 'react'
+import { HashRouter, Route, NavLink } from 'react-router-dom'
+import List from './component/List'
 
 
- function Bio(props) {
-     return(
-         <>
-            <p>{props.name}</p>
-            {props.children}                                            
-        </>
-     )
- }
+function Home() {
+    return (
+        <div>
+            <h2>home</h2>
+        </div>
+    )
+}
 
- class Event extends Component {
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            eventHand : true
-        }
+function Contact() {
+    return (
+        <div>
+            <h2>contact</h2>
+            <ul>
+                <NavLink to="contacth/number">number</NavLink><br/>
+                <NavLink to="contacth/map">map</NavLink>                
+            </ul>
+        </div>
+    )
+}
 
-        // deklarasi metode bind
-        // this.changeEvent = this.changeEvent.bind(this)
-    }
+function Detail({ match }) {
+    return(
+    <h2>ini halaman {match.params.item}</h2>
 
-    changeEvent = () => {
-        this.setState(state => ({
-            eventHand : !state.eventHand
-        }))
-    }
+    )
+}
+
+class App extends Component {
     render() {
-        return(
-            <>
-                <button onClick={this.changeEvent}>
-                    {this.state.eventHand ? 'ON' : 'OFF'}                
-                </button>
+        return (
+            <HashRouter>
+                <div>
+                    <ul>
+                        <li><NavLink to="/">Home</NavLink></li>
+                        <li><NavLink to="/about">About</NavLink></li>
+                        <li><NavLink to="/contact">Contact</NavLink></li>
+                    </ul>
 
-                <p>ready {this.state.eventHand ? 'ONFIRE' : 'DOWN'} </p>
-            </>
-        )
+                    <Route exact path="/" component={Home} />                    
+                    <Route path="/about" component={List} />
+                    <Route path="/contact" component={Contact} />
+                    <Route exact path="/contacth/:item" component={Detail} />
+                    
+                </div>
+            </HashRouter >
+        );
     }
- }
+}
 
- export default class App extends Component {
-     
-    constructor() {
-        super()
-        this.state= {
-            message : ''
-        }
-    }
-
-    BtnChange = () => {
-        this.setState ({
-           message : 'thanks'
-        })
-    }
-
-     render() {
-         return(
-             <React.Fragment>
-                 <h1>welcome</h1>
-                 <Message/>
-                 <About/>
-                 <ul>
-                    <li>
-                        <Bio name='setyo awan prakoso'>
-                            <p>{this.state.message}</p>
-                            <button onClick={this.BtnChange}>Button</button>
-                        </Bio>
-                    </li>                    
-                    <li>
-                        <Bio name='setyo awan'>
-                            <p>from indonesian</p>                            
-                        </Bio>
-                    </li>
-                    <li>
-                        <Bio name='setyo'>
-                            <p>learn by doing!</p>
-                        </Bio>
-                    </li>
-                </ul>
-
-                <Event/>
-
-                <List/>
-                
-                 
-             </React.Fragment>
-         )
-     }
- }
+export default App
